@@ -1,0 +1,2 @@
+# Multi-objective-optimum-design-of-geometrically-non-linear-shallow-dome-structures
+Matlab codes to reproduce the experiments presented in the article "Multi-objective optimum design of geometrically non-linear shallow dome structures", by João Marcos de Paula Vieira, José Pedro Gonçalves Carvalho, Dênis Emanuel da Costa Vargas, Érica da Costa Reis Carvalho, Patrícia Habib Hallak, and Afonso Celso de Castro Lemonge.
