@@ -1,0 +1,459 @@
+This file gives some instructions on how to provide model and analysis data
+for each tag of the input file.
+
+It is important to keep in mind that all units of input data must be consistent,
+and will be the same units of the results.
+
+
+-----------------------------------------------------------------------
+%HEADER
+Here comes an optional description of the model.
+
+
+-----------------------------------------------------------------------
+%MODEL.ANALYSIS_MODEL
+Specify the analysis model type:
+'TRUSS2D',
+'FRAME2D',
+'TRUSS3D',
+'FRAME3D'
+
+
+-----------------------------------------------------------------------
+%MODEL.NODE_COORD
+Provide node coordinates (always 3 coordinates).
+
+Nodes do not need to be sequentially listed (ID numbers in ascending order),
+but it is recommended.
+
+First line: Total number of nodes.
+Following lines: Node ID, coord_X, coord_Y, coord_Z.
+
+Where:
+Node ID -> Identification number of the node.
+coord_X -> Node coordinate in global X-axis.
+coord_Y -> Node coordinate in global Y-axis.
+coord_Z -> Node coordinate in global Z-axis.
+
+
+-----------------------------------------------------------------------
+%MODEL.NODE_SUPPORT
+Provide support conditions for nodes (always 6 components).
+
+All unlisted nodes are assumed to be completely free.
+
+First line: Total number of nodes with support.
+Following lines: Node ID, supp_DX, supp_DY, supp_DZ, supp_RX, supp_RY, supp_RZ.
+
+Where:
+Node ID -> Identification number of the node.
+supp_DX -> Flag for displacement constraint in global X-axis direction.
+supp_DY -> Flag for displacement constraint in global Y-axis direction.
+supp_DZ -> Flag for displacement constraint in global Z-axis direction.
+supp_RX -> Flag for rotation constraint about global X-axis direction.
+supp_RY -> Flag for rotation constraint about global Y-axis direction.
+supp_RZ -> Flag for rotation constraint about global Z-axis direction.
+
+Flags:
+0 -> Free degree-of-freedom.
+1 -> Fixed degree-of-freedom.
+
+
+-----------------------------------------------------------------------
+%MODEL.NODE_PRESC_DISPL
+Provide precribed displacements or rotations for fixed degrees-of-freedom
+(always 6 components).
+
+If a prescribed displacement/rotation is given in a free degree-of-freedom
+direction, it will be ignored by the program.
+
+Prescribed displacements/rotations are only considered in linear-elastic
+and nonlinear analyses.
+
+First line: Total number of nodes with prescribed displacement/rotation.
+Following lines: Node ID, DX, DY, DZ, RX, RY, RZ.
+
+Where:
+Node ID -> Identification number of the node.
+supp_DX -> Prescribed displacement in global X-axis direction.
+supp_DY -> Prescribed displacement in global Y-axis direction.
+supp_DZ -> Prescribed displacement in global Z-axis direction.
+supp_RX -> Prescribed rotation about global X-axis direction.
+supp_RY -> Prescribed rotation about global Y-axis direction.
+supp_RZ -> Prescribed rotation about global Z-axis direction.
+
+
+-----------------------------------------------------------------------
+%MODEL.INIT_CONDITION
+Provide initial conditions of displacement, velocity, and acceleration for
+free degrees-of-freedom (always 18 components).
+
+If an initial condition is given in a fixed degree-of-freedom direction,
+it will be ignored by the program.
+
+Initial conditions are only considered in free vibration analysis.
+
+First line: Total number of nodes with initial condition.
+Following lines: Node ID,
+(all in the      dDX, dDY, dDZ, dRX, dRY, dRZ,
+ same line)      vDX, vDY, vDZ, vRX, vRY, vRZ,
+                 aDX, aDY, aDZ, aRX, aRY, aRZ
+
+Where:
+Node ID -> Identification number of the node.
+
+dDX     -> initial displacement in global X-axis direction.
+dDY     -> initial displacement in global Y-axis direction.
+dDZ     -> initial displacement in global Z-axis direction.
+dRX     -> initial rotation about global X-axis direction.
+dRY     -> initial rotation about global Y-axis direction.
+dRZ     -> initial rotation about global Z-axis direction.
+
+vDX     -> initial translation velocity in global X-axis direction.
+vDY     -> initial translation velocity in global Y-axis direction.
+vDZ     -> initial translation velocity in global Z-axis direction.
+vRX     -> initial rotation velocity about global X-axis direction.
+vRY     -> initial rotation velocity about global Y-axis direction.
+vRZ     -> initial rotation velocity about global Z-axis direction.
+
+aDX     -> initial translation acceleration in global X-axis direction.
+aDY     -> initial translation acceleration in global Y-axis direction.
+aDZ     -> initial translation acceleration in global Z-axis direction.
+aRX     -> initial rotation acceleration about global X-axis direction.
+aRY     -> initial rotation acceleration about global Y-axis direction.
+aRZ     -> initial rotation acceleration about global Z-axis direction.
+
+
+-----------------------------------------------------------------------
+%MODEL.MATERIAL_PROPERTY
+Provide materials properties.
+
+Materials do not need to be sequentially listed (ID numbers in ascending order),
+but it is recommended.
+
+First line: Total number of materials.
+Following lines: Material ID, E, v, rho, alpha.
+
+Where:
+Material ID -> Identification number of the material.
+E           -> Elasticity Modulus
+v           -> Poisson Ratio
+rho         -> Density
+alpha       -> Thermal Expansion Coefficient
+
+The shear modulus is computed from the Elasticity modulus and Poisson Ratio.
+The Density is used only in vibration analyses (but it must be always provided). 
+The thermal expansion coefficient is used only if there are element thermal loads.
+Elasticity modulus, density and thermal exp. coeff. must be a positive value.
+Poisson ratio must be between -1 and 0.5.
+
+
+-----------------------------------------------------------------------
+%MODEL.SECTION_PROPERTY
+Provide cross-section properties (always 8 properties).
+
+Cross-section do not need to be sequentially listed (ID numbers in ascending order),
+but it is recommended.
+
+First line: Total number of cross-sections.
+Following lines: Cross-section ID, Ax, Ay, Az, Ix, Iy, Iz, Hy, Hz.
+
+Where:
+Cross-section ID -> Identification number of the cross-section.
+Ax               -> Area relative to local x-axis (full area).
+Ay               -> Area relative to local y-axis (effective shear area).
+Az               -> Area relative to local z-axis (effective shear area).
+Ix               -> Moment of inertia relative to local x-axis (torsion inertia).
+Iy               -> Moment of inertia relative to local y-axis (bending inertia).
+Iz               -> Moment of inertia relative to local z-axis (bending inertia).
+Hy               -> Height relative to local y-axis.
+Hz               -> Height relative to local z-axis.
+
+All properties must be a positive number.
+The height is used only if there are element thermal loads.
+
+
+-----------------------------------------------------------------------
+%MODEL.ELEMENT
+Provide elements connectivity and properties.
+
+Elements do not need to be sequentially listed (ID numbers in ascending order),
+but it is recommended.
+
+First line: Total number of elements.
+Following lines: Element ID, Type,
+(all in the      Material ID, Cross-Section ID,
+ same line)      Init. Node ID, Final Node ID,
+                 Init. End fixity, Final End fixity,
+                 vz_X, vz_Y, vz_Z
+
+Where:
+Element ID       -> Identification number of the element.
+Type             -> Flag for type of bending theory (used only in frame models).
+Material ID      -> Identification number of the element material.
+Cross-Section ID -> Identification number of the element cross-section.
+Init. Node ID    -> Identification number of initial node.
+Final Node ID    -> Identification number of final node.
+Init. End fixity -> Flag for initial element end fixity type.
+Final End fixity -> Flag for final element end fixity type.
+vz_X             -> Global X-axis component of direction vector Vz (must be 0 in 2D models).
+vz_Y             -> Global Y-axis component of direction vector Vz (must be 0 in 2D models).
+vz_Z             -> Global Z-axis component of direction vector Vz (must be 1 in 2D models).
+
+Flags of element type:
+1 = Euler-Bernoulli.
+2 = Timoshenko.
+
+Flags for end fixity:
+0 = hinged.
+1 = fixed.
+
+
+-----------------------------------------------------------------------
+%MODEL.LOAD.NODE_LOAD
+Provide applied nodal (concentrated) loads or moments (always 6 components).
+
+Nodal loads/moments are not considered in vibration analyses.
+
+First line: Total number of nodes with applied load.
+Following lines: Node ID, FX, FY, FZ, MX, MY, MZ.
+
+Where:
+Node ID -> Identification number of the node.
+supp_FX -> Applied load in global X-axis direction.
+supp_FY -> Applied load in global Y-axis direction.
+supp_FZ -> Applied load in global Z-axis direction.
+supp_MX -> Applied moment about global X-axis direction.
+supp_MY -> Applied moment about global Y-axis direction.
+supp_MZ -> Applied moment about global Z-axis direction.
+
+
+-----------------------------------------------------------------------
+%MODEL.LOAD.ELEM_UNIFORM
+Provide element uniform distributed loads (always 3 components).
+
+Element distributed loads are not considered on truss models and
+vibration analyses.
+
+First line: Total number of elements with uniform distributed load.
+Following lines: Element ID, Direction, QX, QY, QZ.
+
+Where:
+Element ID -> Identification number of the element.
+Direction  -> Flag for the direction of load application.
+supp_QX    -> Load rate value in global or local X-axis direction.
+supp_QY    -> Load rate value in global or local Y-axis direction.
+supp_QZ    -> Load rate value in global or local Z-axis direction.
+
+Flags for load direction:
+0 = Global direction.
+1 = Local direction of the element.
+
+In geometrically nonlinear analysis, loads applied in local direction
+behave as follower loads.
+
+
+-----------------------------------------------------------------------
+%MODEL.LOAD.ELEM_LINEAR
+Provide element linear distributed loads (always 6 components).
+
+Element distributed loads are not considered on truss models and
+vibration analyses.
+
+First line: Total number of elements with linear distributed load.
+Following lines: Element ID, Direction, QX1, QY1, QZ1, QX2, QY2, QZ2.
+
+Where:
+Element ID -> Identification number of the element.
+Direction  -> Flag for the direction of load application.
+supp_QX1   -> Load rate value of initial element end in global or local X-axis direction.
+supp_QY1   -> Load rate value of initial element end in global or local Y-axis direction.
+supp_QZ1   -> Load rate value of initial element end in global or local Z-axis direction.
+supp_QX2   -> Load rate value of final element end in global or local X-axis direction.
+supp_QY2   -> Load rate value of final element end in global or local Y-axis direction.
+supp_QZ2   -> Load rate value of final element end in global or local Z-axis direction.
+
+Flags for load direction:
+0 = Global direction.
+1 = Local direction of the element.
+
+In geometrically nonlinear analysis, loads applied in local direction
+behave as follower loads.
+
+
+-----------------------------------------------------------------------
+%MODEL.LOAD.ELEM_THERMAL
+Provide element thermal loads (temperature variation along local axes).
+
+Element thermal loads are not considered on truss models and
+vibration analyses.
+
+First line: Total number of elements with thermal load.
+Following lines: Element ID, DTX, DTY, DTZ.
+
+Where:
+Element ID -> Identification number of the element.
+DTX        -> Temperature variation of the center-of-gravity axis.
+DTY        -> Temperature gradient relative to local Y-axis.
+DTZ        -> Temperature gradient relative to local Z-axis.
+
+A temperature grandient relative to a local axis is defined as the 
+temperature difference between the top and bottom fibers of the
+cross-section, along the specified local axis.
+
+
+-----------------------------------------------------------------------
+%ANALYSIS.TYPE
+Specify the analysis type:
+'LINEAR_ELASTIC'  -> Linear-elastic.
+'NONLINEAR_GEOM'  -> Geometrically nonlinear.
+'VIBRATION_FREE'  -> Free vibration.
+'MODAL_BUCKLING'  -> Stabibilty: buckling modes and critical load ratios.
+'MODAL_VIBRATION' -> Natural vibration: vibration modes and natural frequencies.
+
+
+-----------------------------------------------------------------------
+%ANALYSIS.TANGENT_STIFFNESS
+Specify the formulation of the tangent stiffness matrix:
+'CR' -> Corotational.
+'UL' -> Updated Lagrangian (depending only on the element axial force).
+
+It is only used in geometrically nonlinear analysis.
+Stability analysis always uses the UL matrix.
+
+
+-----------------------------------------------------------------------
+%ANALYSIS.MASS_MATRIX
+Specify the mass distribution type:
+'CONSISTENT' -> Consistent mass matrix (based on element shape functions).
+'LUMPED'     -> Lumped mass matrix (nodal concentrated mass).
+
+It is only used in vibration analyses.
+
+
+-----------------------------------------------------------------------
+%ANALYSIS.DAMPING
+Specify the damping type:
+'UNDAMPED'     -> No damping.
+'PROPORTIONAL' -> Damping matrix proportional to Mass and Stiffness matrices
+                 (Rayleigh damping).
+
+It is only used in free vibration analysis.
+For undamped vibration, it is not required to be especified.
+
+
+-----------------------------------------------------------------------
+%ANALYSIS.METHOD_NONLINEAR
+Specify the solution method for nonlinear analysis.
+'EULER'    -> Euler's pure incremental.
+'LCM'      -> Load Control.
+'WCM'      -> Work Control.
+'ALCM_FNP' -> Linear Arc-Length (Fixed Normal Plane).
+'ALCM_UNP' -> Linear Arc-Length (Updated Normal Plane).
+'ALCM_CYL' -> Constant Arc-Length (Cylindrical)
+'ALCM_SPH' -> Constant Arc-Length (Spherical)
+'MNCM'     -> Minimum Norm
+'ORCM'     -> Orthogonal Residue
+'GDCM'     -> Generalized Displacement
+
+
+-----------------------------------------------------------------------
+%ANALYSIS.METHOD_VIBRATION
+Specify the solution method for free vibration analysis.
+'RK4'     -> Runge-Kutta (4th order)
+'NEWMARK' -> Newmark
+'WILSONT' -> Wilson-Theta
+'AM'      -> Adams-Moulton
+
+
+-----------------------------------------------------------------------
+%ANALYSIS.INCREMENT_TYPE
+Specify the type of increment size adjustment:
+'CONSTANT' -> Constant increments of load ratio in all steps
+              according to the provided value for initial increment.
+'ADJUSTED' -> Adjusted increment of load ratio in each step
+              according to desired number of iterations.
+
+It is only used in geometrically nonlinear analysis.
+
+
+-----------------------------------------------------------------------
+%ANALYSIS.ITERATION_TYPE
+Specify the type of iteration strategy:
+'STANDARD' -> Standard Newton-Raphson (updates tangent stiffness matrix
+                                       in all iterations).
+'MODIFIED' -> Modified Newton-Raphson (uses the tangent stiffness matrix
+                                       of the step beginning in all step
+									   iterations)
+
+It is only used in geometrically nonlinear analysis.
+
+
+-----------------------------------------------------------------------
+%ANALYSIS.PARAMETERS_NONLINEAR
+Provide numerical parameters for nonlinear analysis (all in the same line):
+-Increment of load ratio in the predicted solution of first step (positive value);
+-Limit value of load ratio to stop analysis;
+-Maximum number of steps to stop analysis (positive value);
+-Maximum number of iterations in each step (positive value);
+-Desired number of iterations in each step (positive value);
+-Tolerance to assume that equilibrium has been reached (positive value);
+
+
+-----------------------------------------------------------------------
+%ANALYSIS.PARAMETERS_VIBRATION
+Provide numerical parameters for free vibration analysis (all in the same line):
+-Increment of time in each step (positive value);
+-Total number of incremental time steps (positive value);
+-Rayleigh coefficients A and B for damping matrix (only used in proportional damping):
+ [C] = A*[M] + B*[K]
+
+
+-----------------------------------------------------------------------
+%ANALYSIS.RESULT_DOMAIN
+Specify the type of result domain for plotting the dynamic response:
+'TIME'      -> Gives the displacement/velocity/acceleration of selected d.o.f's
+               over time.
+'FREQUENCY' -> Gives the displacement/velocity/acceleration of selected d.o.f's
+               in the frequency domain.
+
+It is only used in free vibration analysis.
+
+
+-----------------------------------------------------------------------
+%ANALYSIS.RESULT_CURVES
+Data for plotting result curves.
+Select the degrees-of-freedom whose equilibrium path (in nonlinear analysis)
+or transient response (in free vibration analysis) will be plotted (in the same graph).
+
+First line: Total number of curves.
+Following lines: Name, node ID, DOF
+
+Where:
+Name    -> Name of the curve that will be in the legend of the graph.
+Node ID -> Identification number of the node.
+DOF     -> Flag for degree-of-freedom selection.
+
+Flags foe d.o.f.'s:
+1 = DX
+2 = DY
+3 = DZ
+4 = RX
+5 = RY
+6 = RZ
+
+It is only used in nonlinear and free vibration analysis.
+
+
+-----------------------------------------------------------------------
+%ANALYSIS.RESULT_MODES
+Data for plotting buckling or vibration modes.
+
+First line: Total number of modes to be plotted.
+Following lines: Mode ID, scale factor for plotting mode.
+
+It is only used in modal analyses.
+
+
+-----------------------------------------------------------------------
+%END -> The end tag must be always included!

@@ -1,0 +1,131 @@
+NEUTRAL-FORMAT FILE
+This file stores model and analysis data for the NUMA-TF program.
+To modify the properties, edit only the data below the %TAGS.
+All units must be consistent.
+
+-----------------------------------------------------------------------
+Model description (optional)
+%HEADER
+Cantilever beam with initial condition given at tip node (1 element discretization).
+
+
+
+============================== MODEL DATA ==============================
+
+
+
+-----------------------------------------------------------------------
+Analysis model type: 'TRUSS2D', 'FRAME2D', 'TRUSS3D', 'FRAME3D'
+%MODEL.ANALYSIS_MODEL
+'FRAME2D'
+
+-----------------------------------------------------------------------
+Node coordinates
+First line: Total number of nodes
+Following lines: Node ID, coord_X, coord_Y, coord_Z
+%MODEL.NODE_COORD
+2
+1     0.0  0.0  0.0
+2     1.0  0.0  0.0
+
+-----------------------------------------------------------------------
+Support conditions (all unlisted nodes are assumed to be completely free)
+First line: Total number of nodes with support
+Following lines: Node ID, supp_DX, supp_DY, supp_DZ, supp_RX, supp_RY, supp_RZ
+supp = 0 -> Free degree-of-freedom
+supp = 1 -> Fixed degree-of-freedom
+%MODEL.NODE_SUPPORT
+1
+1     1  1  1  1  1  1
+
+-----------------------------------------------------------------------
+Initial conditions
+First line: Total number of nodes with initial condition
+Following lines: Node ID,
+                 dDX, dDY, dDZ, dRX, dRY, dRZ,
+                 vDX, vDY, vDZ, vRX, vRY, vRZ,
+                 aDX, aDY, aDZ, aRX, aRY, aRZ
+%MODEL.INIT_CONDITION
+1
+2     0 0.01 0 0 0 0   0 0 0 0 0 0   0 0 0 0 0 0
+
+-----------------------------------------------------------------------
+Materials properties
+First line: Total number of materials
+Following lines: Material ID, E, v, rho, alpha
+%MODEL.MATERIAL_PROPERTY
+1
+1     1e+07  0.3  1000  1e-05
+
+-----------------------------------------------------------------------
+Cross-sections properties
+First line: Total number of cross-sections
+Following lines: Cross-section ID, Ax, Ay, Az, Ix, Iy, Iz, Hy, Hz
+%MODEL.SECTION_PROPERTY
+1
+1     1e-02  1e-02  1e-02  1e-05  1e-05  1e-05  1e-01  1e-01
+
+-----------------------------------------------------------------------
+Elements
+First line: Total number of elements
+Following lines: Element ID,
+                 Element Type (1=Euler-Bernoulli,2=Timoshenko),
+                 Material ID, Cross-section ID,
+                 Init. Node ID, Final Node ID,
+                 Init. End fixity, Final End fixity (0=hinged,1=fixed),
+                 vz_X, vz_Y, vz_Z
+%MODEL.ELEMENT
+1
+1     1   1 1   1 2   1 1   0 0 1
+
+
+
+============================= ANALYSIS DATA =============================
+
+
+
+-----------------------------------------------------------------------
+Analysis type: 'LINEAR_ELASTIC', 'NONLINEAR_GEOM', 'VIBRATION_FREE',
+               'MODAL_BUCKLING', 'MODAL_VIBRATION'
+%ANALYSIS.TYPE
+'VIBRATION_FREE'
+
+-----------------------------------------------------------------------
+Mass distribution type: 'CONSISTENT', 'LUMPED'
+%ANALYSIS.MASS_MATRIX
+'CONSISTENT'
+
+-----------------------------------------------------------------------
+Damping type: 'UNDAMPED', 'PROPORTIONAL'
+%ANALYSIS.DAMPING
+'UNDAMPED'
+
+-----------------------------------------------------------------------
+Solution method for vibration analysis:
+'RK4', 'NEWMARK', 'WILSONT', 'AM'
+%ANALYSIS.METHOD_VIBRATION
+'NEWMARK'
+
+-----------------------------------------------------------------------
+Numerical parameters for vibration analysis:
+-Increment of time in each step (positive value);
+-Total number of incremental time steps (positive value);
+-Rayleigh coefficients A and B for damping matrix: [C] = A*[M] + B*[K]
+%ANALYSIS.PARAMETERS_VIBRATION
+0.001  5000  0.01 0.01
+
+-----------------------------------------------------------------------
+Type of result domain: 'TIME', 'FREQUENCY'
+%ANALYSIS.RESULT_DOMAIN
+'TIME'
+
+-----------------------------------------------------------------------
+Data for plotting result curves (equilibrium path or transient response):
+First line: Total number of curves
+Following lines: Curve name, node ID, degree-of-freedom (1=DX,2=DY,3=DZ,4=RX,5=RY,6=RZ)
+%ANALYSIS.RESULT_CURVES
+1
+DY 2 2
+
+
+%END
