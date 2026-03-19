@@ -71,14 +71,14 @@ You can run the code either using the MATLAB IDE or the command window.
 
   % OR run SHAMODE: main_shamodes
 
-  Replace `folder_name` with one of the following:
+Replace `folder_name` with one of the following:
 
-  - mmipde_24bars_truss
-  - mmipde_30bars_truss
-  - mmipde_60bars_truss
-  - shamodes_24bars_truss
-  - shamodes_30bars_truss
-  - shamodes_60bars_truss
+- mmipde_24bars_truss
+- mmipde_30bars_truss
+- mmipde_60bars_truss
+- shamodes_24bars_truss
+- shamodes_30bars_truss
+- shamodes_60bars_truss
 
 ---
 
