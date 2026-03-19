@@ -9,13 +9,13 @@ The implemented methods are evaluated on benchmark truss problems with increasin
 ## Algorithms
 
 ### MMIPDE
-A population-based multiobjective metaheuristic that uses iterative parameter distribution estimation to guide the search process. It incorporates Pareto dominance and maintains an external archive of non-dominated solutions.
+A population-based multiobjective metaheuristic that uses iterative parameter distribution estimation to guide the search process (Wansasueb et al., 2020). It incorporates Pareto dominance and maintains an external archive of non-dominated solutions.
 
 ### SHAMODE
-A multiobjective evolutionary algorithm based on differential evolution strategies with adaptive parameter control.
+A multiobjective evolutionary algorithm based on differential evolution strategies with adaptive parameter control (Panagant et al., 2019).
 
 ### SHAMODE-WO
-A variant of SHAMODE with modified operators or reduced mechanisms, used to assess the contribution of specific algorithmic components.
+A variant of SHAMODE with modified operators or reduced mechanisms, used to assess the contribution of specific algorithmic components (Panagant et al., 2019).
 
 ---
 
@@ -65,22 +65,20 @@ You can run the code either using the MATLAB IDE or the command window.
 
 - Using the command window:
 
-cd 'path_to_repository/folder_name'
+  cd 'path_to_repository/folder_name'
 
-% Run MMIPDE
-MMIPDE
+  % Run MMIPDE: MMIPDE
 
-% OR run SHAMODE
-main_shamodes
+  % OR run SHAMODE: main_shamodes
 
-Replace `folder_name` with one of the following:
+  Replace `folder_name` with one of the following:
 
-- mmipde_24bars_truss
-- mmipde_30bars_truss
-- mmipde_60bars_truss
-- shamodes_24bars_truss
-- shamodes_30bars_truss
-- shamodes_60bars_truss
+  - mmipde_24bars_truss
+  - mmipde_30bars_truss
+  - mmipde_60bars_truss
+  - shamodes_24bars_truss
+  - shamodes_30bars_truss
+  - shamodes_60bars_truss
 
 ---
 
