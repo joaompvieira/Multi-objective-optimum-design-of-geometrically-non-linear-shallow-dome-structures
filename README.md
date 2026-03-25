@@ -15,7 +15,7 @@ A population-based multi-objective metaheuristic that uses iterative parameter d
 A multi-objective evolutionary algorithm based on differential evolution strategies with adaptive parameter control (Panagant et al., 2019).
 
 ### SHAMODE-WO
-A variant of SHAMODE with modified operators or reduced mechanisms, used to assess the contribution of specific algorithmic components (Panagant et al., 2019).
+A variant of SHAMODE with modified operators or reduced mechanisms, used to assess the contribution of specific algorithmic components (Panagant et al., 2019). 
 
 ---
 
