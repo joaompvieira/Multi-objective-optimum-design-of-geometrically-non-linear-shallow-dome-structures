@@ -40,13 +40,13 @@ MMIPDE:
 - mmipde_24bars_truss/
 - mmipde_30bars_truss/
 - mmipde_60bars_truss/
-- mmipde_60_bars_truss_stress_constraints/
+- mmipde_60bars_truss_stress_constraints/
 
 SHAMODE / SHAMODE-WO:
 - shamodes_24bars_truss/
 - shamodes_30bars_truss/
 - shamodes_60bars_truss/
-- shamodes_60_bars_truss_stress_constraints/
+- shamodes_60bars_truss_stress_constraints/
 
 Each folder includes:
 - the implementation of the algorithm
@@ -68,24 +68,22 @@ You can run the code either using the MATLAB IDE or the command window.
 
 - Using the command window:
 
-cd 'path_to_repository/folder_name'
+	cd 'path_to_repository/folder_name'
 
-% Run MMIPDE
-MMIPDE
+	% Run MMIPDE: MMIPDE
 
-% OR run SHAMODE
-main_shamodes
+	% OR run SHAMODE: main_shamodes
 
 Replace 'folder_name' with one of the following:
 
 - mmipde_24bars_truss
 - mmipde_30bars_truss
 - mmipde_60bars_truss
-- mmipde_60_bars_truss_stress_constraints
+- mmipde_60bars_truss_stress_constraints
 - shamodes_24bars_truss
 - shamodes_30bars_truss
 - shamodes_60bars_truss
-- shamodes_60_bars_truss_stress_constraints
+- shamodes_60bars_truss_stress_constraints
 
 ---
 
@@ -101,6 +99,17 @@ Typical parameters are defined within each algorithm's main script and may vary 
 Additionally, the number of objective functions (NumFO) and constraints (QuantRestr) must be properly defined in the dados_do_problema.m file according to the specific structural problem being considered.
 
 The implementations also incorporate components of the NUMA-TF framework, as proposed by Rangel (2019).
+
+```bibtex
+@mastersthesis{rafaelrangel,
+author = "Rangel, R. L.",
+title = "Educational Tool for Structural Analysis of Plane
+Frame Models with Geometric Nonlinearity",
+year = "2019",
+school = "Programa de Pós-graduação em Engenharia Civil, PUC-Rio", 
+note ="In Portuguese"
+}
+```
 
 ---
 
@@ -136,6 +145,34 @@ To reproduce the results:
 - Store and compare Pareto fronts
 - (Optional) fix random seeds
 
+---
+
+## Citation
+
+If you use this repository, please cite:
+
+```bibtex
+@article{mmipde2020,
+  title={Multiobjective meta-heuristic with iterative parameter distribution estimation for aeroelastic design of an aircraft wing},
+  author={Wansasueb, K. and Pholdee, N. and Panagant, N. and Bureerat, S.},
+  journal={Engineering with Computers},
+  pages={1--19},
+  year={2020}
+}
+```
+
+```bibtex
+@article{panagant2019novel,
+  title={A novel self-adaptive hybrid multi-objective meta-heuristic for reliability design of trusses with simultaneous topology, shape and sizing optimisation design variables},
+  author={Panagant, Natee and Bureerat, Sujin and Tai, Kang},
+  journal={Structural and Multidisciplinary Optimization},
+  volume={60},
+  number={5},
+  pages={1937--1955},
+  year={2019},
+  publisher={Springer}
+}
+```
 ---
 
 ## Authors and Affiliations
