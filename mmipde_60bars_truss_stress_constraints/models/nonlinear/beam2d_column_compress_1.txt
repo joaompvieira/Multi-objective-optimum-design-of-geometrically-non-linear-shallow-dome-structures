@@ -1,0 +1,134 @@
+NEUTRAL-FORMAT FILE
+This file stores model and analysis data for the NUMA-TF program.
+To modify the properties, edit only the data below the %TAGS.
+All units must be consistent.
+
+-----------------------------------------------------------------------
+Model description (optional)
+%HEADER
+Vertical column with compression load and an applied moment to simulate an imperfection
+(1 element discretization).
+
+
+
+============================== MODEL DATA ==============================
+
+
+
+-----------------------------------------------------------------------
+Analysis model type: 'TRUSS2D', 'FRAME2D', 'TRUSS3D', 'FRAME3D'
+%MODEL.ANALYSIS_MODEL
+'FRAME2D'
+
+-----------------------------------------------------------------------
+Node coordinates
+First line: Total number of nodes
+Following lines: Node ID, coord_X, coord_Y, coord_Z
+%MODEL.NODE_COORD
+2
+1     0.0  0.0  0.0
+2     0.0  1.0  0.0
+
+-----------------------------------------------------------------------
+Support conditions (all unlisted nodes are assumed to be completely free)
+First line: Total number of nodes with support
+Following lines: Node ID, supp_DX, supp_DY, supp_DZ, supp_RX, supp_RY, supp_RZ
+supp = 0 -> Free degree-of-freedom
+supp = 1 -> Fixed degree-of-freedom
+%MODEL.NODE_SUPPORT
+1
+1     1  1  1  1  1  1
+
+-----------------------------------------------------------------------
+Materials properties
+First line: Total number of materials
+Following lines: Material ID, E, v, rho, alpha
+%MODEL.MATERIAL_PROPERTY
+1
+1     1e+07  0.3  1000  1e-05
+
+-----------------------------------------------------------------------
+Cross-sections properties
+First line: Total number of cross-sections
+Following lines: Cross-section ID, Ax, Ay, Az, Ix, Iy, Iz, Hy, Hz
+%MODEL.SECTION_PROPERTY
+1
+1     1e-02  1e-02  1e-02  1e-05  1e-05  1e-05  1e-01  1e-01
+
+-----------------------------------------------------------------------
+Elements
+First line: Total number of elements
+Following lines: Element ID,
+                 Element Type (1=Euler-Bernoulli,2=Timoshenko),
+                 Material ID, Cross-section ID,
+                 Init. Node ID, Final Node ID,
+                 Init. End fixity, Final End fixity (0=hinged,1=fixed),
+                 vz_X, vz_Y, vz_Z
+%MODEL.ELEMENT
+1
+1     1   1 1   1 2   1 1   0 0 1
+
+-----------------------------------------------------------------------
+Nodal loads
+First line: Total number of nodes with applied load
+Following lines: Node ID, FX, FY, FZ, MX, MY, MZ
+%MODEL.LOAD.NODE_LOAD
+1
+2    0  -1000  0  0  0  -1
+
+
+
+============================= ANALYSIS DATA =============================
+
+
+
+-----------------------------------------------------------------------
+Analysis type: 'LINEAR_ELASTIC', 'NONLINEAR_GEOM', 'VIBRATION_FREE',
+               'MODAL_BUCKLING', 'MODAL_VIBRATION'
+%ANALYSIS.TYPE
+'NONLINEAR_GEOM'
+
+-----------------------------------------------------------------------
+Tangent stiffness matrix formulation: 'CR', 'UL'
+%ANALYSIS.TANGENT_STIFFNESS
+'CR'
+
+-----------------------------------------------------------------------
+Solution method for nonlinear analysis
+'EULER', 'LCM', 'WCM', 'ALCM_FNP', 'ALCM_UNP',
+'ALCM_CYL', 'ALCM_SPH', 'MNCM', 'ORCM', 'GDCM'
+%ANALYSIS.METHOD_NONLINEAR
+'LCM'
+
+-----------------------------------------------------------------------
+Type of increment size: 'CONSTANT', 'ADJUSTED'
+%ANALYSIS.INCREMENT_TYPE
+'CONSTANT'
+
+-----------------------------------------------------------------------
+Type of iteration strategy: 'STANDARD', 'MODIFIED'
+%ANALYSIS.ITERATION_TYPE
+'STANDARD'
+
+-----------------------------------------------------------------------
+Numerical parameters for nonlinear analysis:
+-Increment of load ratio in the predicted solution of first step (positive value);
+-Limit value of load ratio to stop analysis;
+-Maximum number of steps to stop analysis (positive value);
+-Maximum number of iterations in each step (positive value);
+-Desired number of iterations in each step (positive value);
+-Tolerance to assume that equilibrium has been reached (positive value);
+%ANALYSIS.PARAMETERS_NONLINEAR
+0.005  1.0  1000  100  3  0.00001
+
+-----------------------------------------------------------------------
+Data for plotting result curves (equilibrium path or transient response):
+First line: Total number of curves
+Following lines: Curve name, node ID, degree-of-freedom (1=DX,2=DY,3=DZ,4=RX,5=RY,6=RZ)
+%ANALYSIS.RESULT_CURVES
+2
+DX  2  1
+DY  2  2
+
+
+%END

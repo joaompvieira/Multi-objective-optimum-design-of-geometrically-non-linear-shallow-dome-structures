@@ -1,0 +1,146 @@
+NEUTRAL-FORMAT FILE
+This file stores model and analysis data for the NUMA-TF program.
+To modify the properties, edit only the data below the %TAGS.
+All units must be consistent.
+
+-----------------------------------------------------------------------
+Model description (optional)
+%HEADER
+L shape frame with vertical load applied in the corner node
+(1 element discretization).
+
+
+
+============================== MODEL DATA ==============================
+
+
+
+-----------------------------------------------------------------------
+Analysis model type: 'TRUSS2D', 'FRAME2D', 'TRUSS3D', 'FRAME3D'
+%MODEL.ANALYSIS_MODEL
+'FRAME2D'
+
+-----------------------------------------------------------------------
+Node coordinates
+First line: Total number of nodes
+Following lines: Node ID, coord_X, coord_Y, coord_Z
+%MODEL.NODE_COORD
+21
+1     0.00  0.00  0.00
+2     0.00  0.12  0.00
+3     0.00  0.24  0.00
+4     0.00  0.36  0.00
+5     0.00  0.48  0.00
+6     0.00  0.60  0.00
+7     0.00  0.72  0.00
+8     0.00  0.84  0.00
+9     0.00  0.96  0.00
+10    0.00  1.08  0.00
+11    0.00  1.20  0.00
+12    0.12  1.20  0.00
+13    0.24  1.20  0.00
+14    0.36  1.20  0.00
+15    0.48  1.20  0.00
+16    0.60  1.20  0.00
+17    0.72  1.20  0.00
+18    0.84  1.20  0.00
+19    0.96  1.20  0.00
+20    1.08  1.20  0.00
+21    1.20  1.20  0.00
+
+-----------------------------------------------------------------------
+Support conditions (all unlisted nodes are assumed to be completely free)
+First line: Total number of nodes with support
+Following lines: Node ID, supp_DX, supp_DY, supp_DZ, supp_RX, supp_RY, supp_RZ
+supp = 0 -> Free degree-of-freedom
+supp = 1 -> Fixed degree-of-freedom
+%MODEL.NODE_SUPPORT
+2
+1     1  1  1  0  0  0
+21    1  1  1  0  0  0
+
+-----------------------------------------------------------------------
+Materials properties
+First line: Total number of materials
+Following lines: Material ID, E, v, rho, alpha
+%MODEL.MATERIAL_PROPERTY
+1
+1     7.2e+06  0.3  1000  1e-05
+
+-----------------------------------------------------------------------
+Cross-sections properties
+First line: Total number of cross-sections
+Following lines: Cross-section ID, Ax, Ay, Az, Ix, Iy, Iz, Hy, Hz
+%MODEL.SECTION_PROPERTY
+1
+1     6e-04  6e-04  6e-04  2e-08  2e-08  2e-08  1e-01  1e-01
+
+-----------------------------------------------------------------------
+Elements
+First line: Total number of elements
+Following lines: Element ID,
+                 Element Type (1=Euler-Bernoulli,2=Timoshenko),
+                 Material ID, Cross-section ID,
+                 Init. Node ID, Final Node ID,
+                 Init. End fixity, Final End fixity (0=hinged,1=fixed),
+                 vz_X, vz_Y, vz_Z
+%MODEL.ELEMENT
+20
+1      1   1 1   1  2    1 1   0 0 1
+2      1   1 1   2  3    1 1   0 0 1
+3      1   1 1   3  4    1 1   0 0 1
+4      1   1 1   4  5    1 1   0 0 1
+5      1   1 1   5  6    1 1   0 0 1
+6      1   1 1   6  7    1 1   0 0 1
+7      1   1 1   7  8    1 1   0 0 1
+8      1   1 1   8  9    1 1   0 0 1
+9      1   1 1   9  10   1 1   0 0 1
+10     1   1 1   10 11   1 1   0 0 1
+11     1   1 1   11 12   1 1   0 0 1
+12     1   1 1   12 13   1 1   0 0 1
+13     1   1 1   13 14   1 1   0 0 1
+14     1   1 1   14 15   1 1   0 0 1
+15     1   1 1   15 16   1 1   0 0 1
+16     1   1 1   16 17   1 1   0 0 1
+17     1   1 1   17 18   1 1   0 0 1
+18     1   1 1   18 19   1 1   0 0 1
+19     1   1 1   19 20   1 1   0 0 1
+20     1   1 1   20 21   1 1   0 0 1
+
+-----------------------------------------------------------------------
+Nodal loads
+First line: Total number of nodes with applied load
+Following lines: Node ID, FX, FY, FZ, MX, MY, MZ
+%MODEL.LOAD.NODE_LOAD
+1
+11     0  -1  0  0  0  0
+
+
+
+============================= ANALYSIS DATA =============================
+
+
+
+-----------------------------------------------------------------------
+Analysis type: 'LINEAR_ELASTIC', 'NONLINEAR_GEOM', 'VIBRATION_FREE',
+               'MODAL_BUCKLING', 'MODAL_VIBRATION'
+%ANALYSIS.TYPE
+'MODAL_BUCKLING'
+
+-----------------------------------------------------------------------
+Mass distribution type: 'CONSISTENT', 'LUMPED'
+%ANALYSIS.MASS_MATRIX
+'CONSISTENT'
+
+-----------------------------------------------------------------------
+Data for plotting buckling/vibration modes
+First line: Total number of modes
+Following lines: Mode ID, scale factor for plotting mode
+%ANALYSIS.RESULT_MODES
+3
+1   1.0
+2   1.0
+3   1.0
+
+
+%END

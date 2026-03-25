@@ -2,17 +2,17 @@
 
 This repository presents a comparative study of multi-objective metaheuristic algorithms (MMIPDE, SHAMODE, and SHAMODE-WO) applied to structural optimization problems involving spatial truss structures.
 
-The implemented methods are evaluated on benchmark truss problems with increasing complexity (24, 30, and 60 bars), allowing for a systematic analysis of algorithmic performance in multi-objective structural design.
+The implemented methods are evaluated on benchmark truss problems with increasing complexity (24, 30, and 60 bars), as well as on a constrained variant of the 60-bar truss problem focusing on stress constraints. This enables a systematic analysis of algorithmic performance under different structural and constraint conditions.
 
 ---
 
 ## Algorithms
 
 ### MMIPDE
-A population-based multiobjective metaheuristic that uses iterative parameter distribution estimation to guide the search process (Wansasueb et al., 2020). It incorporates Pareto dominance and maintains an external archive of non-dominated solutions.
+A population-based multi-objective metaheuristic that uses iterative parameter distribution estimation to guide the search process (Wansasueb et al., 2020). It incorporates Pareto dominance and maintains an external archive of non-dominated solutions.
 
 ### SHAMODE
-A multiobjective evolutionary algorithm based on differential evolution strategies with adaptive parameter control (Panagant et al., 2019).
+A multi-objective evolutionary algorithm based on differential evolution strategies with adaptive parameter control (Panagant et al., 2019).
 
 ### SHAMODE-WO
 A variant of SHAMODE with modified operators or reduced mechanisms, used to assess the contribution of specific algorithmic components (Panagant et al., 2019).
@@ -21,13 +21,14 @@ A variant of SHAMODE with modified operators or reduced mechanisms, used to asse
 
 ## Benchmark Problems
 
-The algorithms are evaluated on three structural optimization problems:
+The algorithms are evaluated on the following structural optimization problems:
 
 - 24-bar truss
 - 30-bar truss
 - 60-bar truss
+- 60-bar truss with stress constraints
 
-These problems represent increasing levels of structural complexity and dimensionality.
+These problems represent increasing levels of structural complexity and different constraint formulations.
 
 ---
 
@@ -39,11 +40,13 @@ MMIPDE:
 - mmipde_24bars_truss/
 - mmipde_30bars_truss/
 - mmipde_60bars_truss/
+- mmipde_60_bars_truss_stress_constraints/
 
 SHAMODE / SHAMODE-WO:
 - shamodes_24bars_truss/
 - shamodes_30bars_truss/
 - shamodes_60bars_truss/
+- shamodes_60_bars_truss_stress_constraints/
 
 Each folder includes:
 - the implementation of the algorithm
@@ -61,24 +64,28 @@ Each folder includes:
 You can run the code either using the MATLAB IDE or the command window.
 
 - Using the MATLAB IDE:
-  Open the desired folder and run the main script (e.g., `MMIPDE.m` or `main_shamodes.m`) by clicking "Run".
+  Open the desired folder and run the main script (e.g., MMIPDE.m or main_shamodes.m) by clicking "Run".
 
 - Using the command window:
 
-  cd 'path_to_repository/folder_name'
+cd 'path_to_repository/folder_name'
 
-  % Run MMIPDE: MMIPDE
+% Run MMIPDE
+MMIPDE
 
-  % OR run SHAMODE: main_shamodes
+% OR run SHAMODE
+main_shamodes
 
-Replace `folder_name` with one of the following:
+Replace 'folder_name' with one of the following:
 
 - mmipde_24bars_truss
 - mmipde_30bars_truss
 - mmipde_60bars_truss
+- mmipde_60_bars_truss_stress_constraints
 - shamodes_24bars_truss
 - shamodes_30bars_truss
 - shamodes_60bars_truss
+- shamodes_60_bars_truss_stress_constraints
 
 ---
 
@@ -91,20 +98,10 @@ Typical parameters are defined within each algorithm's main script and may vary 
 - Archive size (narchive)
 - Number of independent runs (nrun)
 
-Additionally, the number of objective functions (`NumFO`) and constraints (`QuantRestr`) must be properly defined in the `dados_do_problema.m` file according to the specific structural problem being considered.
+Additionally, the number of objective functions (NumFO) and constraints (QuantRestr) must be properly defined in the dados_do_problema.m file according to the specific structural problem being considered.
 
 The implementations also incorporate components of the NUMA-TF framework, as proposed by Rangel (2019).
 
-```bibtex
-@mastersthesis{rafaelrangel,
-author = "Rangel, R. L.",
-title = "Educational Tool for Structural Analysis of Plane
-Frame Models with Geometric Nonlinearity",
-year = "2019",
-school = "Programa de Pós-graduação em Engenharia Civil, PUC-Rio", 
-note ="In Portuguese"
-}
-```
 ---
 
 ## Output
@@ -141,39 +138,11 @@ To reproduce the results:
 
 ---
 
-## Citation
-
-If you use this repository, please cite:
-
-```bibtex
-@article{mmipde2020,
-  title={Multiobjective meta-heuristic with iterative parameter distribution estimation for aeroelastic design of an aircraft wing},
-  author={Wansasueb, K. and Pholdee, N. and Panagant, N. and Bureerat, S.},
-  journal={Engineering with Computers},
-  pages={1--19},
-  year={2020}
-}
-```
-
-```bibtex
-@article{panagant2019novel,
-  title={A novel self-adaptive hybrid multi-objective meta-heuristic for reliability design of trusses with simultaneous topology, shape and sizing optimisation design variables},
-  author={Panagant, Natee and Bureerat, Sujin and Tai, Kang},
-  journal={Structural and Multidisciplinary Optimization},
-  volume={60},
-  number={5},
-  pages={1937--1955},
-  year={2019},
-  publisher={Springer}
-}
-```
----
-
 ## Authors and Affiliations
 
 - João Marcos de Paula Vieira, PPGMC/UFJF
 - José Pedro Gonçalves Carvalho, PEC/COPPE/UFRJ
 - Dênis Emanuel da Costa Vargas, DM/CEFET-MG
 - Érica da Costa Reis Carvalho, DCOMP/UFSJ
-- Patrícia Habib Hallak, MAC/UFJF 
+- Patrícia Habib Hallak, MAC/UFJF
 - Afonso Celso de Castro Lemonge, MAC/UFJF
